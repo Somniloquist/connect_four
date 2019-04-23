@@ -6,4 +6,11 @@ class Board
     @columns = 7
     @grid = Array.new(rows) { Array.new(columns, 0) }
   end
+
+  def to_s
+    puts ""
+    grid.each do |row|
+      p row
+    end
+  end
 end

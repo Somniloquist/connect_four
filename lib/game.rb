@@ -16,8 +16,10 @@ class Game
   def place_marker(marker, column)
     rows = board.rows
     rows.times do |row|
-      board.grid[row][column] = 1 if board.grid[row][column] == 0
-      return true
+      if board.grid[row][column] == 0
+        board.grid[row][column] = marker
+        return true
+      end
     end
   end
 
