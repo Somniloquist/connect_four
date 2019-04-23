@@ -8,6 +8,10 @@ class Game
     valid_play?(column) ? place_marker(marker, column) : false
   end
 
+  def get_turn_order(*players)
+    players.sort { |a, b| b.last_roll <=> a.last_roll }
+  end
+
   private
   def place_marker(marker, column)
     rows = board.rows
