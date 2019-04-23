@@ -49,6 +49,14 @@ describe Game do
       expect(game.board.grid[0][column]).to eql('x')
     end
 
+    it "does not allow maker to be placed if out of bounds" do
+      game = Game.new
+      marker = 1
+      column = game.board.columns
+      game.make_play(marker, column)
+      expect(game.board.grid[0][column]).to eql(nil)
+    end
+
   end
 end
 
