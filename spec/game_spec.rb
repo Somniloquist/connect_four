@@ -9,7 +9,20 @@ describe Game do
   end
 
   describe "#make_play" do
-    it "places a marker if play is valid" do
+    it "returns true when play is valid" do
+      game = Game.new
+      expect(game.make_play(1, 3)).to eql(true)
+    end
+
+    it "returns false when play is invalid" do
+      game = Game.new
+      game.board.rows.times do |row|
+        game.board.grid[row][3] = 'x'
+      end
+      expect(game.make_play(1, 3)).to eql(false)
+    end
+
+    it "places a marker when play is valid" do
       game = Game.new
       marker = 1
       column = 3
@@ -17,7 +30,7 @@ describe Game do
       expect(game.board.grid[0][column]).to eql(1)
     end
 
-    it "does not place marker if column is full" do
+    it "does not place marker when column is full" do
       game = Game.new
       marker = 1
       column = 3
