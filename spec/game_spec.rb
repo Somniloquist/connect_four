@@ -1,22 +1,4 @@
-require "./connect_four.rb"
-
-describe Board do
-  describe "#initialize" do
-    it "initializes a board with 7 columns and 6 rows" do
-      board = Board.new
-      expect([board.grid[0].size, board.grid.size]).to eql([7,6])
-    end
-    
-    it "cells are initialized with a default value of 0" do
-      board = Board.new
-      board.grid.each do |row|
-        row.each { |cell| expect(cell).to eql(0) }
-      end
-    end
-
-  end
-
-end
+require "game.rb"
 
 describe Game do
   describe "#initialize" do
@@ -49,7 +31,7 @@ describe Game do
       expect(game.board.grid[0][column]).to eql('x')
     end
 
-    it "does not allow maker to be placed if out of bounds" do
+    it "does not place a marker out of bounds" do
       game = Game.new
       marker = 1
       column = game.board.columns
@@ -58,7 +40,4 @@ describe Game do
     end
 
   end
-end
-
-describe Player do
 end
