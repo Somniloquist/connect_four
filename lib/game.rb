@@ -12,6 +12,10 @@ class Game
     players.sort { |a, b| b.last_roll <=> a.last_roll }
   end
 
+  def draw?
+    board.grid.any? { |row| row.any?(0) } ? false : true
+  end
+
   private
   def place_marker(marker, column)
     rows = board.rows

@@ -72,17 +72,23 @@ describe Game do
     end
   end
 
-  # describe "#draw?" do
-  #   it "returns true if there are no valid moves left" do
-  #     game = Game.new
-  #     game.board.columns.times do |col|
-  #       game.board.rows.times do 
-  #         game.make_play('x', col)
-  #       end
-  #     end
-  #     puts game.board
-  #     expect(draw?).to eql(true)
-  #   end
-  # end
+  describe "#draw?" do
+    it "returns true if there are no valid moves left" do
+      game = Game.new
+      game.board.columns.times do |col|
+        game.board.rows.times { game.make_play('x', col) }
+      end
+      expect(game.draw?).to eql(true)
+    end
+
+    it "returns false if there is at least one valid move left" do
+      game = Game.new
+      game.board.columns.times do |col|
+        game.board.rows.times { game.make_play('x', col) }
+      end
+      game.board.grid[game.board.rows-1][game.board.columns-1] = 0
+      expect(game.draw?).to eql(false)
+    end
+  end
 
 end

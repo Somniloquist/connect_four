@@ -9,7 +9,7 @@ class Board
 
   def to_s
     puts ""
-    grid.each do |row|
+    grid.reverse_each do |row|
       p row
     end
   end
