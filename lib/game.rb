@@ -15,6 +15,7 @@ class Game
 
     loop do
       puts board
+      puts("#{current_player.name}".center(29, "="))
       col = get_input
       make_play(current_player.marker, col)
 
