@@ -1,4 +1,3 @@
-require "board.rb"
 class Game
   attr_reader :board
   def initialize
@@ -14,7 +13,7 @@ class Game
   end
 
   def game_over?
-    row_win? || column_win? || draw?
+    row_win? || column_win? || diagonal_win? || draw?
   end
 
   private
@@ -41,6 +40,30 @@ class Game
       count, last_cell = 0, 0
       board.rows.times do |row|
         cell = board.grid[row][column]
+        next if cell == 0
+        last_cell == cell ? count += 1 : count = 1
+        return true if count == 4
+        last_cell = cell
+      end
+    end
+
+    false
+  end
+
+  def diagonal_win?
+    possible_wins = [
+      [[3,0],[2,1],[1,2],[0,3]], [[3,6],[2,5],[1,4],[0,3]],
+      [[4,0],[3,1],[2,2],[1,3], [0,4]],[[4,6],[3,5],[2,4],[1,3],[0,2]],
+      [[5,0],[4,1],[3,2],[2,3],[1,4],[0,5]], [[5,6],[4,5],[3,4],[2,3],[1,2],[0,1]],
+      [[5,1],[4,2],[3,3],[2,4],[1,5],[0,6]], [[5,5],[4,4],[3,3],[2,2],[1,1],[0,0]],
+      [[5,2],[4,3],[3,4],[2,5],[1,6]], [[5,4],[4,3],[3,2],[2,1],[1,0]],
+      [[5,3],[4,4],[3,5],[2,6]], [[5,3],[4,2],[3,1],[2,0]]
+    ]
+
+    possible_wins.each do |path|
+      count, last_cell = 0, 0
+      path.each do |y, x|
+        cell = board.grid[y][x]
         next if cell == 0
         last_cell == cell ? count += 1 : count = 1
         return true if count == 4

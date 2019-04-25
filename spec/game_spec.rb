@@ -1,5 +1,6 @@
 require "game.rb"
 require "player.rb"
+require "board.rb"
 
 describe Game do
   describe "#initialize" do
@@ -109,6 +110,13 @@ describe Game do
     it "returns true when 4 markers are in a column" do
       game = Game.new
       4.times { game.make_play('x', 3) }
+      expect(game.game_over?).to eql(true)
+    end
+
+    it "returns true when 4 markers are diagonal" do
+      game = Game.new
+      diagonals = [[4,5],[3,4],[2,3],[1,2]]
+      diagonals.each { |y,x| game.board.grid[y][x] = 'x' }
       expect(game.game_over?).to eql(true)
     end
 
