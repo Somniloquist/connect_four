@@ -67,9 +67,8 @@ describe Game do
   describe "#get_turn_order" do
     it "returns a sorted array of players" do
       game, p1, p2, p3, p4 = Game.new, Player.new, Player.new, Player.new, Player.new
-      p1.last_roll, p2.last_roll, p3.last_roll, p4.last_roll = 50, 100, 25, 75
-      order = game.get_turn_order(p1, p2, p3, p4)
-      expect(order).to eql([p2, p4, p1, p3])
+      order = game.get_turn_order([p1, p2, p3, p4])
+      expect(order).to eql([p4, p2, p1, p3].sort_by {|p| -p.last_roll})
     end
   end
 

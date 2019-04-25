@@ -17,12 +17,17 @@ class Game
       puts board
       col = get_input
       make_play(current_player.marker, col)
+
       break if game_over?
       current_player, next_player = next_player, current_player
     end
 
     puts board
-    puts "#{current_player.name} wins!"
+    if draw?
+      puts("It's a draw!")
+    else
+      puts "#{current_player.name} wins!"
+    end
   end
 
   def make_play(marker, column)
@@ -45,7 +50,7 @@ class Game
     loop do
       print(" >> ")
       input = gets
-      return input.to_i if is_number?(input) && input.to_i.between?(0,6)
+      return input.to_i if is_number?(input) && input.to_i.between?(0,6) && valid_play?(input.to_i)
     end
   end
 
@@ -61,7 +66,10 @@ class Game
     board.grid.each do |row|
       last_cell, count = 0, 0
       row.each do |cell|
-        next if cell == 0
+        if cell == 0
+          count = 0
+          next
+        end
         last_cell == cell ? count += 1 : count = 1
         return true if count == 4
         last_cell = cell
@@ -76,7 +84,10 @@ class Game
       count, last_cell = 0, 0
       board.rows.times do |row|
         cell = board.grid[row][column]
-        next if cell == 0
+        if cell == 0
+          count = 0
+          next
+        end
         last_cell == cell ? count += 1 : count = 1
         return true if count == 4
         last_cell = cell
@@ -100,7 +111,10 @@ class Game
       count, last_cell = 0, 0
       path.each do |y, x|
         cell = board.grid[y][x]
-        next if cell == 0
+        if cell == 0
+          count = 0
+          next
+        end
         last_cell == cell ? count += 1 : count = 1
         return true if count == 4
         last_cell = cell
