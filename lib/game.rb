@@ -41,7 +41,9 @@ class Game
 
   private
   def get_input
+    puts("Choose a column:")
     loop do
+      print(" >> ")
       input = gets
       return input.to_i if is_number?(input) && input.to_i.between?(0,6)
     end
