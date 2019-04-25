@@ -14,7 +14,7 @@ class Game
   end
 
   def game_over?
-    row_win? || draw?
+    row_win? || column_win? || draw?
   end
 
   private
@@ -23,9 +23,8 @@ class Game
   end
 
   def row_win?
-    count = 0
-    last_cell = 0
     board.grid.each do |row|
+      last_cell, count = 0, 0
       row.each do |cell|
         next if cell == 0
         last_cell == cell ? count += 1 : count = 1
@@ -34,6 +33,10 @@ class Game
       end
     end
 
+    false
+  end
+
+  def column_win?
     false
   end
 

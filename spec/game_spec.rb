@@ -106,6 +106,12 @@ describe Game do
       expect(game.game_over?).to eql(false)
     end
 
+    it "returns true when 4 markers are in a column" do
+      game = Game.new
+      4.times { game.make_play('x', 3) }
+      expect(game.game_over?).to eql(true)
+    end
+
   end
 
 end
