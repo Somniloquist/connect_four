@@ -16,11 +16,13 @@ class Game
     loop do
       puts board
       col = get_input
-      p col
-
+      make_play(current_player.marker, col)
       break if game_over?
+      current_player, next_player = next_player, current_player
     end
 
+    puts board
+    puts "#{current_player.name} wins!"
   end
 
   def make_play(marker, column)

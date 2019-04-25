@@ -1,11 +1,12 @@
 class Player
   @@count = 1
   attr_accessor :last_roll
-  attr_reader :name
-  def initialize(name = "player#{@@count}")
+  attr_reader :name, :marker
+  def initialize(name = "player#{@@count}", marker = @@count)
     @@count += 1
     @name = name
     @last_roll = nil
+    @marker = marker
   end
 
   def roll

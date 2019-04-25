@@ -8,16 +8,18 @@ class Board
   end
 
   def to_s
-    puts("")
-    print("  0   1   2   3   4   5   6  \n")
-    print("+---+---+---+---+---+---+---+\n")
+    output = ""
+    output << "\n"
+    output << "  0   1   2   3   4   5   6  \n"
+    output << "+---+---+---+---+---+---+---+\n"
     grid.reverse_each do |row|
       row.each do |cell|
-        print("| #{cell.to_s.gsub("0", " ")} ")
+        output << "| #{cell.to_s.gsub("0", " ")} "
       end
-      print("|\n")
-      print("+---+---+---+---+---+---+---+\n")
+      output << "|\n"
+      output << "+---+---+---+---+---+---+---+\n"
     end
-    puts("")
+    output << "\n"
   end
+
 end
