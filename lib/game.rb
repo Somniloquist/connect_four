@@ -37,6 +37,17 @@ class Game
   end
 
   def column_win?
+    board.columns.times do |column|
+      count, last_cell = 0, 0
+      board.rows.times do |row|
+        cell = board.grid[row][column]
+        next if cell == 0
+        last_cell == cell ? count += 1 : count = 1
+        return true if count == 4
+        last_cell = cell
+      end
+    end
+
     false
   end
 
