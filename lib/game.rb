@@ -1,15 +1,34 @@
 class Game
+  attr_accessor :players
   attr_reader :board
-  def initialize
+  def initialize(*players)
     @board = Board.new
+    @players = players
+  end
+
+  def play
+    @players = get_turn_order(players)
+    players.each { |player| puts("#{player.name} rolled: #{player.last_roll}") }
+    puts("#{players.first.name} goes first!")
+    current_player = players.first
+    next_player = players.last
+
+    puts board
+
+    # loop do
+    #   break if game_over?
+    # end
+
   end
 
   def make_play(marker, column)
     valid_play?(column) ? place_marker(marker, column) : false
   end
 
-  def get_turn_order(*players)
-    players.sort { |a, b| b.last_roll <=> a.last_roll }
+  def get_turn_order(players)
+    players.each { |player| player.roll }
+    # putting '-' in front of the sorting function is used to reverse sort (descending)
+    players.sort_by { |player| -player.last_roll }
   end
 
   def game_over?
