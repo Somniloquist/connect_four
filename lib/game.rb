@@ -1,3 +1,4 @@
+require "board.rb"
 class Game
   attr_reader :board
   def initialize
@@ -12,11 +13,30 @@ class Game
     players.sort { |a, b| b.last_roll <=> a.last_roll }
   end
 
+  def game_over?
+    row_win? || draw?
+  end
+
+  private
   def draw?
     board.grid.any? { |row| row.any?(0) } ? false : true
   end
 
-  private
+  def row_win?
+    count = 0
+    last_cell = 0
+    board.grid.each do |row|
+      row.each do |cell|
+        next if cell == 0
+        last_cell == cell ? count += 1 : count = 1
+        return true if count == 4
+        last_cell = cell
+      end
+    end
+
+    false
+  end
+
   def place_marker(marker, column)
     rows = board.rows
     rows.times do |row|

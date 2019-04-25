@@ -72,23 +72,40 @@ describe Game do
     end
   end
 
-  describe "#draw?" do
-    it "returns true if there are no valid moves left" do
+  describe "#game_over?" do
+    it "returns true if there are no valid moves left (draw)" do
       game = Game.new
       game.board.columns.times do |col|
         game.board.rows.times { game.make_play('x', col) }
       end
-      expect(game.draw?).to eql(true)
+      expect(game.game_over?).to eql(true)
     end
 
     it "returns false if there is at least one valid move left" do
       game = Game.new
+      count = 0
       game.board.columns.times do |col|
-        game.board.rows.times { game.make_play('x', col) }
+        game.board.rows.times do
+           game.make_play(count, col)
+           count += 1
+        end
       end
       game.board.grid[game.board.rows-1][game.board.columns-1] = 0
-      expect(game.draw?).to eql(false)
+      expect(game.game_over?).to eql(false)
     end
+
+    it "returns true when 4 markers are in a row" do
+      game = Game.new
+      game.board.grid[3] = ['x','o','x','x','x','x','o']
+      expect(game.game_over?).to eql(true)
+    end
+
+    it "returns false when 4 markers are NOT in a row" do
+      game = Game.new
+      game.board.grid[3] = ['o','x','x','o','x','x','o']
+      expect(game.game_over?).to eql(false)
+    end
+
   end
 
 end
