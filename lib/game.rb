@@ -13,11 +13,13 @@ class Game
     current_player = players.first
     next_player = players.last
 
-    puts board
+    loop do
+      puts board
+      col = get_input
+      p col
 
-    # loop do
-    #   break if game_over?
-    # end
+      break if game_over?
+    end
 
   end
 
@@ -36,6 +38,17 @@ class Game
   end
 
   private
+  def get_input
+    loop do
+      input = gets
+      return input.to_i if is_number?(input) && input.to_i.between?(0,6)
+    end
+  end
+
+  def is_number?(str)
+      str.match(/\d+/) ? true : false
+  end
+
   def draw?
     board.grid.any? { |row| row.any?(0) } ? false : true
   end
